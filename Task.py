@@ -126,8 +126,8 @@ if expression:
         for line in lines:
             st.text('                   ' + line)
 
-        leading_spaces = f"""           My name is and I am years old."""
-        st.write(leading_spaces, unsafe_allow_html=True)
+        # leading_spaces = f"""           My name is and I am years old."""
+        # st.write(leading_spaces, unsafe_allow_html=True)
 
         print(" " * (lineLength - len(words[0])) + words[0].upper() + " " * (8 + (lineLength - len(words[0]))) + print_number(words[0]))
         print(parts[1] + " " * (lineLength - (len(words[1]) + 1)) + words[1].upper() + " " * 8 + parts[1] + " " * (lineLength - len(words[1]) - 1) + print_number(words[1]))
