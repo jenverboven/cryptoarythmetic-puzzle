@@ -1,7 +1,5 @@
 # oplossing gebaseerd op tweede voorbeeld uit de cursus
 import streamlit as st
-import pandas as pd
-import numpy as np
 
 def run():
     st.set_page_config(
@@ -24,14 +22,27 @@ if expression:
 
         # maak een lijst dat alle delen van de puzzel bevat (dus de zonet gevraagde puzzel opgesplitst op de spaties)
         parts = expression.split()
+
+        if len(parts) != 5:
+            st.warning('Oops! Seems like you entered an invalid puzzle. Make sure to seperate all factors and signs with a space.', icon="⚠️")
+            st.stop()
+
         # haal uit de lijst van delen alle WOORDEN
         words = [parts[0], parts[2], parts[4]]
+
+        for word in words:
+            if not word.isalpha():
+                st.warning('Oops! Seems like you entered an invalid puzzle. Make sure to only use letters in the words.', icon="⚠️")
+                st.stop()
+
+
         # zet een lijst klaar met mogelijke operations dat de gebruiker mag invullen in de puzzel
         operators = ['+', '-', '*', '/']
         # zet een lege lijst klaar waar straks de unieke karakters uit de puzzel in terecht komen
         variables = []
         # zet een lege dictionary klaar waar straks de domains in komen, in domains komt te staan welke karakters welke numerieke waarden kunnen aannemen bij het oplossen van de puzzel
         domains = {}
+
 
         # loop door alle woorden in de puzzel
         for word in words:
@@ -54,12 +65,12 @@ if expression:
 
         # als er te veel verschillende karakters worden gebruikt in de puzzel krijgt de gebruiker een notificatie en wordt de puzzel niet berekend
         if len(variables) > 10:
-            print("too many different characters used, use max 9 different characters")
+            # print("too many different characters used, use max 9 different characters")
             st.warning('Oops! A cryptoarithmethic puzzle can only work with up to 10 characters. Try another one!', icon="⚠️")
 
         # als er een niet gekende operatie wordt uitgevoerd (die niet in de operations lijst staat) krijgt de gebruiker een notificatie en wordt de puzzel niet berekend
         elif parts[1] not in operators:
-            print("please choose one of these operators: +, -, *, /")
+            # print("please choose one of these operators: +, -, *, /")
             st.warning('Oops! This program is limited to one of these operations: ( + - * / ). Try one of these operators!', icon="⚠️")
         # als de vorige 2 exceptions niet voorkomen kan de puzzel berekend worden
         else:
